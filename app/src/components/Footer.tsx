@@ -118,7 +118,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} TerraFerme. Tous droits reserves.
             {' '}&mdash; Con&ccedil;u par{' '}
             <a
-              href="https://beonweb.fr"
+              href="https://www.beonweb.cm/"
               target="_blank"
               rel="noopener noreferrer"
               className="underline hover:text-neutral-500 transition-colors"

@@ -135,11 +135,10 @@ function HeroSection() {
     const els = contentRef.current.children
     const tl = gsap.timeline({ delay: 0.3 })
 
-    tl.fromTo(els[0], { opacity: 0 }, { opacity: 0.8, duration: 0.6, ease: 'power2.out' })
-      .fromTo(els[1], { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1.0, ease: 'expo.out' }, '-=0.3')
-      .fromTo(els[2], { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: 'expo.out' }, '-=0.5')
-      .fromTo(els[3], { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: 'expo.out' }, '-=0.4')
-      .fromTo(els[4], { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.2')
+    tl.fromTo(els[0], { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1.0, ease: 'expo.out' })
+      .fromTo(els[1], { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: 'expo.out' }, '-=0.5')
+      .fromTo(els[2], { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: 'expo.out' }, '-=0.4')
+      .fromTo(els[3], { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.2')
 
     return () => { tl.kill() }
   }, [])
@@ -157,9 +156,6 @@ function HeroSection() {
         ref={contentRef}
         className="relative z-[3] flex flex-col items-center justify-end min-h-[100dvh] pb-24 px-4 sm:px-8"
       >
-        <span className="text-white/80 text-xs sm:text-sm font-medium tracking-[0.12em] uppercase mb-4 font-body">
-          COOPERATIVE AGRICOLE TERRAFERME
-        </span>
         <h1
           className="font-display text-white text-center font-bold max-w-[720px]"
           style={{

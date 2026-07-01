@@ -116,6 +116,15 @@ export default function Footer() {
         <div className="mt-12 pt-6 border-t border-neutral-700 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-neutral-600 text-xs">
             &copy; {new Date().getFullYear()} TerraFerme. Tous droits reserves.
+            {' '}&mdash; Con&ccedil;u par{' '}
+            <a
+              href="https://beonweb.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-neutral-500 transition-colors"
+            >
+              Beonweb
+            </a>
           </p>
           <div className="flex gap-6">
             <a href="#" className="text-neutral-600 hover:text-neutral-500 text-xs transition-colors">Mentions Legales</a>

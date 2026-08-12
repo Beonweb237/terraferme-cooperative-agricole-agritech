@@ -388,10 +388,18 @@ export default function Products() {
       {/* ========== SECTION 1: PAGE HEADER ========== */}
       <div
         ref={headerRef}
-        className="pt-[120px] pb-20"
-        style={{ background: '#166534' }}
+        className="relative pt-[120px] pb-20 bg-cover bg-center"
+        style={{
+          backgroundImage: 'url(https://images.unsplash.com/photo-1542838132-92c53300491e?w=1920&q=80)',
+        }}
       >
-        <div className="max-w-3xl mx-auto px-4 sm:px-8 lg:px-12 text-center">
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(to bottom, rgba(22,101,52,0.6) 0%, rgba(22,101,52,0.9) 100%)',
+          }}
+        />
+        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-8 lg:px-12 text-center">
           {/* Breadcrumbs */}
           <div className="flex items-center justify-center gap-2 mb-6 text-[13px]">
             <Link to="/" className="text-white/60 hover:text-white transition-colors duration-200">

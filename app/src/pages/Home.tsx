@@ -7,123 +7,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 /* ------------------------------------------------------------------ */
-/*  HERO SEASONAL GRADIENT BACKGROUND (WebGL fallback)                  */
-/* ------------------------------------------------------------------ */
-function SeasonalBackground() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const rafRef = useRef<number>(0)
-  const progressRef = useRef(0)
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    let w = window.innerWidth
-    let h = window.innerHeight
-    const dpr = Math.min(window.devicePixelRatio || 1, 2)
-
-    const resize = () => {
-      w = window.innerWidth
-      h = window.innerHeight
-      canvas.width = w * dpr
-      canvas.height = h * dpr
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-    }
-    resize()
-    window.addEventListener('resize', resize)
-
-    const seasonColors = [
-      { r: 34, g: 197, b: 94 },   // summer green
-      { r: 217, g: 119, b: 6 },   // autumn gold
-      { r: 148, g: 163, b: 184 }, // winter frost
-      { r: 74, g: 222, b: 128 },  // spring bloom
-    ]
-
-    const lerp = (a: number, b: number, t: number) => a + (b - a) * t
-
-    const draw = () => {
-      const p = progressRef.current
-
-      let c1, c2, t
-      if (p < 0.33) {
-        c1 = seasonColors[0]; c2 = seasonColors[1]; t = p / 0.33
-      } else if (p < 0.66) {
-        c1 = seasonColors[1]; c2 = seasonColors[2]; t = (p - 0.33) / 0.33
-      } else {
-        c1 = seasonColors[2]; c2 = seasonColors[3]; t = (p - 0.66) / 0.34
-      }
-
-      const r = Math.round(lerp(c1.r, c2.r, t))
-      const g = Math.round(lerp(c1.g, c2.g, t))
-      const b = Math.round(lerp(c1.b, c2.b, t))
-
-      const grad = ctx.createLinearGradient(0, 0, w, h)
-      grad.addColorStop(0, `rgb(${Math.max(0, r - 60)}, ${Math.max(0, g - 40)}, ${Math.max(0, b - 20)})`)
-      grad.addColorStop(0.4, `rgb(${r}, ${g}, ${b})`)
-      grad.addColorStop(1, `rgb(${Math.min(255, r + 80)}, ${Math.min(255, g + 60)}, ${Math.min(255, b + 40)})`)
-
-      ctx.fillStyle = grad
-      ctx.fillRect(0, 0, w, h)
-
-      // Animated particles
-      const time = Date.now() * 0.0005
-      for (let i = 0; i < 30; i++) {
-        const px = (Math.sin(time + i * 1.3) * 0.5 + 0.5) * w
-        const py = (Math.cos(time + i * 0.7) * 0.5 + 0.5) * h
-        const radius = 2 + Math.sin(time + i) * 1.5
-        ctx.beginPath()
-        ctx.arc(px, py, Math.max(1, radius), 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(255, 255, 255, ${0.1 + Math.sin(time + i * 0.5) * 0.05})`
-        ctx.fill()
-      }
-
-      rafRef.current = requestAnimationFrame(draw)
-    }
-
-    rafRef.current = requestAnimationFrame(draw)
-
-    return () => {
-      cancelAnimationFrame(rafRef.current)
-      window.removeEventListener('resize', resize)
-    }
-  }, [])
-
-  useEffect(() => {
-    const el = canvasRef.current?.parentElement
-    if (!el) return
-
-    const st = ScrollTrigger.create({
-      trigger: el,
-      start: 'top top',
-      end: '+=200%',
-      pin: true,
-      scrub: true,
-      onUpdate: (self) => {
-        progressRef.current = self.progress
-      },
-    })
-
-    return () => { st.kill() }
-  }, [])
-
-  return (
-    <canvas
-      ref={canvasRef}
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 1,
-      }}
-    />
-  )
-}
-
-/* ------------------------------------------------------------------ */
 /*  HERO SECTION                                                        */
 /* ------------------------------------------------------------------ */
 function HeroSection() {
@@ -144,17 +27,20 @@ function HeroSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="relative min-h-[100dvh] overflow-hidden">
-      <SeasonalBackground />
+    <section ref={sectionRef} className="relative min-h-[100dvh] pt-[72px] overflow-hidden" style={{
+      backgroundImage: 'url(https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1920&q=80)',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }}>
       <div
-        className="absolute inset-0 z-[2]"
+        className="absolute inset-0"
         style={{
-          background: 'linear-gradient(to bottom, rgba(28,25,23,0.15) 0%, rgba(28,25,23,0.4) 60%, rgba(28,25,23,0.85) 100%)',
+          background: 'linear-gradient(to bottom, rgba(28,25,23,0.3) 0%, rgba(28,25,23,0.45) 60%, rgba(28,25,23,0.75) 100%)',
         }}
       />
       <div
         ref={contentRef}
-        className="relative z-[3] flex flex-col items-center justify-end min-h-[100dvh] pb-24 px-4 sm:px-8"
+        className="relative z-10 flex flex-col items-center justify-end min-h-[100dvh] pb-24 px-4 sm:px-8"
       >
         <h1
           className="font-display text-white text-center font-bold max-w-[720px]"
@@ -921,7 +807,7 @@ function CTAVideoSection() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          videoRef.current?.play().catch(() => {})
+          videoRef.current?.play().catch(() => { })
         } else {
           videoRef.current?.pause()
         }

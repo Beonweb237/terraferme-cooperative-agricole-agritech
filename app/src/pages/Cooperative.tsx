@@ -59,8 +59,16 @@ function FadeIn({ children, delay = 0, className = '' }: { children: React.React
    ═══════════════════════════════════════════ */
 function PageHeader() {
   return (
-    <section className="relative bg-[#166534] pt-36 pb-24 lg:pt-40 lg:pb-28">
-      <div className="max-w-[800px] mx-auto px-4 sm:px-8 lg:px-12 text-center">
+    <section className="relative bg-cover bg-center pt-36 pb-24 lg:pt-40 lg:pb-28" style={{
+      backgroundImage: 'url(https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1920&q=80)',
+    }}>
+      <div
+        className="absolute inset-0"
+        style={{
+          background: 'linear-gradient(to bottom, rgba(22,101,52,0.7) 0%, rgba(22,101,52,0.9) 100%)',
+        }}
+      />
+      <div className="relative z-10 max-w-[800px] mx-auto px-4 sm:px-8 lg:px-12 text-center">
         <nav className="mb-6">
           <Link to="/" className="text-[13px] font-body text-white/60 hover:text-white transition-colors">
             Home
@@ -257,11 +265,10 @@ function TierSection() {
             <motion.div
               key={tier.name}
               variants={staggerItem}
-              className={`relative rounded-xl p-8 lg:p-10 transition-all duration-300 ${
-                tier.popular
+              className={`relative rounded-xl p-8 lg:p-10 transition-all duration-300 ${tier.popular
                   ? 'bg-white border-2 border-[#D97706] shadow-[0_8px_32px_rgba(217,119,6,0.15)] md:scale-[1.03]'
                   : 'bg-white border border-neutral-200'
-              }`}
+                }`}
             >
               {tier.popular && (
                 <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#D97706] text-neutral-900 text-[11px] font-body font-semibold uppercase tracking-wider px-4 py-1 rounded-full">
@@ -291,11 +298,10 @@ function TierSection() {
               </ul>
 
               <button
-                className={`w-full py-3.5 px-8 rounded-md text-[14px] font-body font-semibold tracking-[0.02em] transition-all duration-200 ${
-                  tier.popular
+                className={`w-full py-3.5 px-8 rounded-md text-[14px] font-body font-semibold tracking-[0.02em] transition-all duration-200 ${tier.popular
                     ? 'bg-[#166534] text-white hover:bg-[#14532D] hover:scale-[1.02]'
                     : 'bg-transparent border-[1.5px] border-[#166534] text-[#166534] hover:bg-[#166534] hover:text-white'
-                }`}
+                  }`}
               >
                 Devenir {tier.name}
               </button>

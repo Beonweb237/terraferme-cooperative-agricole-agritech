@@ -266,12 +266,18 @@ export default function AgriTech() {
       {/* SECTION 1 — Page Header                                       */}
       {/* ============================================================ */}
       <section
-        className="w-full pt-36 md:pt-44 pb-20 md:pb-24 px-4 sm:px-8 lg:px-12"
+        className="relative w-full pt-36 md:pt-44 pb-20 md:pb-24 bg-cover bg-center"
         style={{
-          background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%)',
+          backgroundImage: 'url(https://images.unsplash.com/photo-1586771107445-b3ea888603ce?w=1920&q=80)',
         }}
       >
-        <div className="max-w-3xl mx-auto text-center">
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,41,59,0.8) 50%, rgba(15,23,42,0.85) 100%)',
+          }}
+        />
+        <div className="relative z-10 max-w-3xl mx-auto text-center">
           {/* Breadcrumbs */}
           <motion.p
             className="text-sm mb-6"
